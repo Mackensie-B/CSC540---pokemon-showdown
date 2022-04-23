@@ -45,7 +45,7 @@ class BattleNode:
 
 	def getParent(self):
 		return self.parent
-		
+
 	def setChildren(self, children):
 		self.children = children
 	
@@ -53,15 +53,13 @@ class BattleNode:
 		return self.children
 
 	def addChild(self, child):
-		self.children.push(child)
+		self.children.append(child)
 
 	
 
 class minMaxPlayer(Player):
-	pass
+	
 	def choose_move(self, battle):
-		
-
 		# send in battle object so all properties are available
 		tree = buildTree(battle)
 		best_node = minmax(tree) # send in tree object, get chosen node
