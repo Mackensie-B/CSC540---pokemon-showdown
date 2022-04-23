@@ -10,8 +10,21 @@ class BattleNode:
 	These nodes are part of a tree that is built by considering 
 	all possible options. This tree is then parsed through to 
 	find the best choice for the move to make.'''
-	def __init__(self):
-		pass
+	def __init__(self, player_active, opp_active, player_turn):
+		''' player_active = player's active pokemon
+			opp_active = opponents active pokemon
+			player_turn = true if player turn, false if not'''
+		self.player_active = player_active 
+		self.opp_active = opp_active
+		self.player_turn = player_turn
+		self.move 
+	
+	def setMove(self, move):
+		'''Set the chosen move for this node'''
+		self.move = move
+
+	def getMove(self):
+		return self.move
 
 class minMaxPlayer(Player):
 	pass
@@ -33,6 +46,9 @@ class minMaxPlayer(Player):
 
 def buildTree(battle):
 	'''Builds a 2 or 3 level tree of possible moves for the current battle state.'''
+	# simple start, only one choice
+
+	
 	pass
 
 def minmax(tree):
