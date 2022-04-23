@@ -3,6 +3,17 @@
 import asyncio
 from poke_env.player.player import Player
 from poke_env.player.random_player import RandomPlayer
+
+# battle has properties: https://poke-env.readthedocs.io/en/latest/battle.html?highlight=battle_format
+	# active_pokemon
+	# available_moves
+	# available_switches
+	# opponent_active_pokemon
+	# opponent_team 
+	# team
+
+#  Pokemon properties: https://poke-env.readthedocs.io/en/latest/pokemon.html
+# move obj: https://poke-env.readthedocs.io/en/latest/move.html
 # List of avilable properties for a pokemon object
 	# https://poke-env.readthedocs.io/en/latest/pokemon.html
 class BattleNode:
@@ -10,13 +21,16 @@ class BattleNode:
 	These nodes are part of a tree that is built by considering 
 	all possible options. This tree is then parsed through to 
 	find the best choice for the move to make.'''
-	def __init__(self, player_active, opp_active, player_turn):
+
+	def __init__(self, player_active, opp_active, player_turn, parentNode):
 		''' player_active = player's active pokemon
 			opp_active = opponents active pokemon
 			player_turn = true if player turn, false if not'''
 		self.player_active = player_active 
 		self.opp_active = opp_active
 		self.player_turn = player_turn
+		self.parent = parentNode
+		self.children = []
 		self.move 
 	
 	def setMove(self, move):
@@ -26,28 +40,41 @@ class BattleNode:
 	def getMove(self):
 		return self.move
 
+	def setParent(self, parent):
+		self.parent = parent
+
+	def getParent(self):
+		return self.parent
+		
+	def setChildren(self, children):
+		self.children = children
+	
+	def getChildren(self):
+		return self.children
+
+	def addChild(self, child):
+		self.children.push(child)
+
+	
+
 class minMaxPlayer(Player):
 	pass
 	def choose_move(self, battle):
-		# battle has properties: 
-			# active_pokemon
-			# available_moves
-			# available_switches
-			# opponent_active_pokemon
-			# opponent_team 
-			# team
-			# some others 
+		
 
 		# send in battle object so all properties are available
 		tree = buildTree(battle)
-		move = minmax(tree) # send in tree object
+		best_node = minmax(tree) # send in tree object, get chosen node
 		# make move
+		move = best_node.getMove()
+		# research move object and how to make a move
+		# https://poke-env.readthedocs.io/en/latest/move.html 
 		pass
 
 def buildTree(battle):
 	'''Builds a 2 or 3 level tree of possible moves for the current battle state.'''
-	# simple start, only one choice
-
+	# simple start, only one choice for testing
+	node = BattleNode(battle.active_pokemon, battle.opponent_active_pokemon, True)
 	
 	pass
 
