@@ -231,10 +231,14 @@ export async function runActions(user: User, room: GameRoom, message: string, re
 				if (matches < Object.keys(punishment.secondaryTypes).length) continue;
 			}
 			if (punishment.count) {
-				const hits = await Chat.database.all(
+				let hits = await Chat.database.all(
 					`SELECT * FROM perspective_flags WHERE userid = ? AND type = ? AND certainty >= ?`,
 					[user.id, type, num]
 				);
+				// filtering out old hits by request of admins.
+				// don't wanna make this easily configured bc we should never need to do it again
+				// don't wanna delete it bc data is good
+				hits = hits.filter(f => new Date(f.time).getFullYear() > 2021);
 				if (hits.length < punishment.count) continue;
 			}
 			recommended.push([punishment.punishment, type]);
@@ -337,7 +341,9 @@ export async function lock(user: User, room: GameRoom, reason: string, isWeek?: 
 		isWeek ? 7 * 24 * 60 * 60 * 1000 : null,
 		user.id,
 		false,
-		reason
+		reason,
+		false,
+		['#artemis'],
 	);
 	globalModlog(`${isWeek ? 'WEEK' : ''}LOCK`, user, reason, room);
 	addGlobalModAction(`${user.name} was locked from talking by Artemis ${isWeek ? 'for a week ' : ""}(${reason})`, room);
