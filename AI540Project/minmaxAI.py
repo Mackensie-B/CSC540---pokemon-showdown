@@ -3,6 +3,15 @@
 import asyncio
 from poke_env.player.player import Player
 from poke_env.player.random_player import RandomPlayer
+# List of avilable properties for a pokemon object
+	# https://poke-env.readthedocs.io/en/latest/pokemon.html
+class BattleNode:
+	'''Holds information about the turn in a battle. 
+	These nodes are part of a tree that is built by considering 
+	all possible options. This tree is then parsed through to 
+	find the best choice for the move to make.'''
+	def __init__(self):
+		pass
 
 class minMaxPlayer(Player):
 	pass
@@ -15,22 +24,21 @@ class minMaxPlayer(Player):
 			# opponent_team 
 			# team
 			# some others 
-		
+
+		# send in battle object so all properties are available
+		tree = buildTree(battle)
+		move = minmax(tree) # send in tree object
+		# make move
 		pass
-def minmax():
-# List of avilable properties for a pokemon object
-	# https://poke-env.readthedocs.io/en/latest/pokemon.html
-# move options for min max are to check types and pick best move for the type
-# tree branches:
-	####? when do we check if we are low on health?
-	# check if opponent is low on health
-		# low -> best damage move to defeat that pokemon
-		# too high
-			# check type compatibility
-				# opposing type -> choose best damage move against that type
-				####? is it possible for us to be at a big enough type 
-				##### disadvantage that we would want to switch?
-				# neutral type -> choose max damage move 
+
+def buildTree(battle):
+	'''Builds a 2 or 3 level tree of possible moves for the current battle state.'''
+	pass
+
+def minmax(tree):
+	'''Goes through the battle tree to evaluate the nodes.
+	Then chooses a best move and sends it back to choose_move.'''
+
 	pass
 
 async def main():
