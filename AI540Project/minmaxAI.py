@@ -33,6 +33,7 @@ class BattleNode:
 		self.parent = parentNode
 		self.children = []
 		self.move = None
+		self.value = None
 	
 	def setMove(self, move):
 		'''	Set the chosen move for this node'''
@@ -56,7 +57,12 @@ class BattleNode:
 	def addChild(self, child):
 		self.children.append(child)
 
-	
+	def setValue(self, value):
+		'''	Set the value for this node'''
+		self.value = value
+
+	def getValue(self):
+		return self.value
 
 class minMaxPlayer(Player):
 	
@@ -64,7 +70,7 @@ class minMaxPlayer(Player):
 		if battle.available_moves:
 			# send in battle object so all properties are available
 			rootNode = buildTree(battle) #send battle, returns root node
-			best_node = minmax(rootNode) # send in root node(current battle), get node with chosen move
+			best_node = minmax(rootNode) # send in root node(current battle), get root node with the chosen move stored
 			# make move
 			move = best_node.getMove()
 			print("move: ", move)
@@ -103,6 +109,25 @@ def minmax(root):
 		Then chooses a best move and sends that node back to choose_move.'''
 	# simple start, returns the first child node
 	return root.getChildren()[0]
+
+	# go to end of each branch
+	# assign that branch a value
+	# # # value based on the predicted amount of damage a move will do. calculate predicted damge 
+	# # # 			calculate predicted damge
+	# # # 			if the value is above threshold like 0.25*opponents_HP --> +10
+	# # # 			between .10 and .25 --> 0
+	# # # 			below .10 --> -10
+	# # # or if it is a switch, base it on if the current poke type combo 
+	# # # 			bad for us (+10), neutral for us (0), good for us (-10)
+	# bubble the values by choosing the largest of the children depending on who's turn it is
+	# # # 			player turn --> pick larget of children
+	# # # 			opponent turn --> pick smallest of children
+	# assigning the best value to the parent
+
+	# Maybe put this step in it's own function and just return the root here
+	# loop through root's children to find matching node value
+	# store the best move in the root node
+	# return root
 
 async def main():
 	start = time.time()
