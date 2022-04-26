@@ -23,18 +23,31 @@ class BattleNode:
 		all possible options. This tree is then parsed through to 
 		find the best choice for the move to make.'''
 
-	def __init__(self, player_active, opp_active, player_turn, parentNode):
+	def __init__(self, battle, player_turn, parentNode):
 		''' player_active = player's active pokemon
 			opp_active = opponents active pokemon
 			player_turn = true if player turn, false if not, None if root node'''
-		self.player_active = player_active 
-		self.opp_active = opp_active
+		self.battle = battle
 		self.player_turn = player_turn
 		self.parent = parentNode
 		self.children = []
 		self.move = None
 		self.value = None
-	
+
+	def setbattle(self, battle):
+		'''	Set the battle object for this node'''
+		self.battle = battle
+
+	def getbattle(self):
+		return self.battle
+
+	def setPlayerTurn(self, value):
+		'''	Set the turn for this node. True for player turn, false for opponent's'''
+		self.player_turn = value
+
+	def getPlayerTurn(self):
+		return self.player_turn
+
 	def setMove(self, move):
 		'''	Set the chosen move for this node'''
 		self.move = move
@@ -69,8 +82,9 @@ class minMaxPlayer(Player):
 	def choose_move(self, battle):
 		if battle.available_moves:
 			# send in battle object so all properties are available
-			rootNode = buildTree(battle) #send battle, returns root node
-			best_node = minmax(rootNode) # send in root node(current battle), get root node with the chosen move stored
+			rootNode = BattleNode(battle, None, None)
+			rootNode = buildTree(rootNode) #send root, returns root node of constructed tree
+			best_node = minmax(rootNode, 0) # send in root node(current battle), get root node with the chosen move stored
 			# make move
 			move = best_node.getMove()
 			print("move: ", move)
@@ -93,24 +107,42 @@ class minMaxPlayer(Player):
 			return self.choose_random_move(battle)
 		
 
-def buildTree(battle):
+def buildTree(node, layerCount):
 	'''	Builds a 2 or 3 level tree of possible moves for the current battle state.
 		Returns root node which is the current battle state. '''
-	# simple start, only one choice for testing
-	rootNode = BattleNode(battle.active_pokemon, battle.opponent_active_pokemon, None, None)
-	print("battle.available_moves: ", battle.available_moves)
-	nodeOne = BattleNode(battle.active_pokemon, battle.opponent_active_pokemon, True, rootNode)
-	nodeOne.setMove(battle.available_moves[0])	
-	rootNode.addChild(nodeOne)
-	return rootNode
+	if(layerCount >= 3):
+		return node #only want 3 layers, so stop making children
+	else:
+		# Add each available move as a node
+		for i in range(0, len(node.getBattle.available_moves)):
+			if node.getPlayerTurn == None:
+				value = True
+			else:
+				value = not node.getPlayerTurn
+			# Add 1 to layer count
+			layerCount += 1
+			child = BattleNode(node.getBattle, value, node)
+			child.setMove(node.getBattle.available_moves[i])
+			# go to next layer of branch
+			buildTree(child, layerCount)
+			# when it comes back, add to parent
+			node.addChild(child)
 
-def minmax(root):
-	'''	Goes through the battle tree to evaluate the nodes.
+		# Add node(s) for switch
+			# make child
+			# call buildTree on child
+			# add child to parent
+
+		# return node, should be the root when all the recursive calls come back
+		return node
+
+def minmax(node):
+	'''	Goes through the battle tree recursively to evaluate the nodes.
 		Then chooses a best move and sends that node back to choose_move.'''
 	# simple start, returns the first child node
-	return root.getChildren()[0]
+	# return root.getChildren()[0]
 
-	# go to end of each branch
+
 	# assign that branch a value
 	# # # value based on the predicted amount of damage a move will do. calculate predicted damge 
 	# # # 			calculate predicted damge
@@ -122,6 +154,31 @@ def minmax(root):
 	# bubble the values by choosing the largest of the children depending on who's turn it is
 	# # # 			player turn --> pick larget of children
 	# # # 			opponent turn --> pick smallest of children
+	if (len(node.getChildren) < 1):
+		# This is the last node of a branch
+		pass
+	
+	else:
+		# go to end of each branch recursively
+		for i in range(0, len(node.getChildren)):
+			minmax(node.getChildren[i])
+			# Comes back when all children have a value
+			# Get value for node from children
+			if node.player_turn:
+				maxVal = -9999
+				for child in node.getChildren:
+					if child.getValue > maxVal:
+						maxVal = child.getValue
+				node.setValue = maxVal 
+			else: #if opponent turn
+				minVal = 9999
+				for child in node.getChildren:
+					if child.getValue < minVal:
+						minVal = child.getValue
+				node.setValue = minVal 
+
+
+	
 	# assigning the best value to the parent
 
 	# Maybe put this step in it's own function and just return the root here
