@@ -1,5 +1,7 @@
 # Following this guide for general idea on using a custom player
 # https://poke-env.readthedocs.io/en/latest/max_damage_player.html#max-damage-player
+# node pokemon-showdown start --no-security
+
 import asyncio
 from poke_env.player.player import Player
 from poke_env.player.random_player import RandomPlayer
@@ -154,6 +156,69 @@ def minmax(node):
 	# bubble the values by choosing the largest of the children depending on who's turn it is
 	# # # 			player turn --> pick larget of children
 	# # # 			opponent turn --> pick smallest of children
+
+
+	### if poke_env.environment.battle.Battle.opponent_active_pokemon == poke_env.environment.battle.Battle.current_hp:
+	####	
+
+	if node.battle.available_moves:
+		best_move = max(node.battle.available_moves, key = lambda move: move.base_power)
+
+	### If opponent's hp == max damage from ability, run move. Currently needs to account for effectiveness, but should work in mean time
+	if node.environment.pokemon.Pokemon.opponent.current_hp == max(node.battle.available_moves, key = lambda move: move.base_power):
+		best_move = max(node.battle.available_moves, key = lambda move: move.base_power)
+		return node.create_order(best_move)
+
+	type_1 = node.environment.pokemon.Pokemon.type_1
+	type_2 = node.environment.pokemon.Pokemon.type_2
+
+	# define types 
+	# https://poke-env.readthedocs.io/_/downloads/en/latest/pdf/ page 58
+	bug_pokemon = node.environment.pokemon_type.PokemonType == 1
+	dark_pokemon = node.environment.pokemon_type.PokemonType == 2
+	dragon_pokemon = node.environment.pokemon_type.PokemonType == 3
+	electric_pokemon = node.environment.pokemon_type.PokemonType == 4
+	fairy_pokemon = node.environment.pokemon_type.PokemonType == 5
+	fighting_pokemon = node.environment.pokemon_type.PokemonType == 6
+	fire_pokemon = node.environment.pokemon_type.PokemonType == 7
+	flying_pokemon = node.environment.pokemon_type.PokemonType == 8
+	ghost_pokemon = node.environment.pokemon_type.PokemonType == 9
+	grass_pokemon = node.environment.pokemon_type.PokemonType == 10
+	ground_pokemon = node.environment.pokemon_type.PokemonType == 11
+	ice_pokemon = node.environment.pokemon_type.PokemonType == 12
+	normal_pokemon = node.environment.pokemon_type.PokemonType == 13
+	poison_pokemon = node.environment.pokemon_type.PokemonType == 14
+	psychic_pokemon = node.environment.pokemon_type.PokemonType == 15
+	rock_pokemon = node.environment.pokemon_type.PokemonType == 16
+	steel_pokemon = node.environment.pokemon_type.PokemonType == 17
+	water_pokemon = node.environment.pokemon_type.PokemonType == 18
+
+	#move_1_type = node.environment.move.type
+	move_1_type = node.getBattle.available_moves[0].type
+	move_2_type = node.getBattle.available_moves[1].type
+	move_3_type = node.getBattle.available_moves[2].type
+	move_4_type = node.getBattle.available_moves[3].type
+
+	### Goal is to check to see if move_type is super_effective. It is currently defining it as the best move
+	if (type_1 == 1 or type_2 == 1):
+	#checkMoves
+		if (move_1_type == 7 or move_1_type == 16 or move_1_type == 8):
+			best_move = node.getBattle.available_moves[0]
+
+		elif (move_2_type == 7 or move_2_type == 16 or move_2_type == 8):
+			best_move = node.getBattle.available_moves[1]
+			
+		elif (move_3_type == 7 or move_3_type == 16 or move_3_type == 8):
+			best_move = node.getBattle.available_moves[2]
+
+		elif (move_4_type == 7 or move_1_type == 16 or move_4_type == 8):
+			best_move = node.getBattle.available_moves[3]
+
+	if (type_1 == 1 or type_2 == 1):
+		if (node.getBattle.available_moves[i]):
+			pass
+
+	### if (poke_env.environment.pokemon.Pokemon.type_1)
 	if (len(node.getChildren) < 1):
 		# This is the last node of a branch
 		pass
