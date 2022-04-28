@@ -221,6 +221,8 @@ def minmax(node):
 	### if (poke_env.environment.pokemon.Pokemon.type_1)
 	if (len(node.getChildren) < 1):
 		# This is the last node of a branch
+		# Assign it a value
+		
 		pass
 	
 	else:
@@ -229,18 +231,18 @@ def minmax(node):
 			minmax(node.getChildren[i])
 			# Comes back when all children have a value
 			# Get value for node from children
-			if node.player_turn:
-				maxVal = -9999
-				for child in node.getChildren:
-					if child.getValue > maxVal:
-						maxVal = child.getValue
-				node.setValue = maxVal 
-			else: #if opponent turn
-				minVal = 9999
-				for child in node.getChildren:
-					if child.getValue < minVal:
-						minVal = child.getValue
-				node.setValue = minVal 
+		if node.player_turn:
+			maxVal = -9999
+			for child in node.getChildren:
+				if child.getValue > maxVal:
+					maxVal = child.getValue
+			node.setValue = maxVal 
+		else: #if opponent turn
+			minVal = 9999
+			for child in node.getChildren:
+				if child.getValue < minVal:
+					minVal = child.getValue
+			node.setValue = minVal 
 
 
 	
