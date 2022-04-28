@@ -255,14 +255,234 @@ def minmax(node):
 		elif (move_4_type == 13 or move_4_type == 8 or move_4_type == 14 or move_4_type == 12):
 			return 10
 
-		### Test here for regular effective moves and return 0
-		#elif (move_1_type == 7 or move_1_type == 16 or move_1_type == 8):
-	#		return 0
 
-		### Test here for non effective moves and return 10
-		elif (move_1_type == 10 or move_1_type == 2 or move_1_type == 15): # fairy steel, 
+		### test for Dark Psychic
+	if (type_1 == 2 and type_2 == 15 or type_1 == 15 and type_2 == 2):
+		if (move_1_type == 1):
+			return -20 # best move cause quad superEffective
+
+		if (move_1_type == 5):
+			return -10 # 2* superEffective
+		
+		if (move_1_type == 13 or move_1_type == 6 or move_1_type == 8 or move_1_type == 14 or move_1_type == 11 or move_1_type == 16 or move_1_type == 9 or move_1_type == 17 or move_1_type == 7 or move_1_type == 18 or move_1_type == 10 or move_1_type == 4 or move_1_type == 12 or move_1_type == 3 or move_1_type == 2):
+			return 0 # 1* superEffective
+		
+		if (move_1_type == 15):
+			return 100 # immunity
+
+
+	### Grass bug
+	if (type_1 == 10 and type_1 == 1 or type_1 == 1 and type_1 == 10):
+		if (move_1_type == 7 or move_1_type == 8):
+			return -20
+		
+		if (move_1_type == 14 or move_1_type == 16 or move_1_type == 1 or move_1_type == 12):
+			return -10
+		
+		if (move_1_type == 13 or move_1_type == 9 or move_1_type == 17 or move_1_type == 15 or move_1_type == 3 or move_1_type == 2 or move_1_type == 5):
+			return 0
+		
+		if (move_1_type == 6 or move_1_type == 18 or move_1_type == 4):
+			return 10
+		
+		if (move_1_type == 11 or move_1_type == 10):
+			return 15
+
+
+	### Grass ice
+	if (type_1 == 10 and type_2 == 12 or type_1 == 12 and type_2 == 10):
+		if (move_1_type == 7):
+			return -20
+		if (move_1_type == 6 or move_1_type == 8 or move_1_type == 14 or move_1_type == 16 or move_1_type == 1 or move_1_type == 17):
+			return -10
+
+		if (move_1_type == 13 or move_1_type == 9 or move_1_type == 15 or move_1_type == 12 or move_1_type == 3 or move_1_type == 2 or move_1_type == 5):
+			return 0
+
+		if (move_1_type == 11 or move_1_type == 18 or move_1_type == 10 or move_1_type == 4):
 			return 10
 
+	
+	### Bug flying
+	if (type_1 == 1 and type_2 == 8 or type_1 == 8 and type_1 == 1):
+		if (move_1_type == 16):
+			return -20
+
+		if (move_1_type == 8 or move_1_type == 7 or move_1_type == 4 or move_1_type == 12):
+			return -10
+
+		if (move_1_type == 13 or move_1_type == 14 or move_1_type == 9 or move_1_type == 17 or move_1_type == 18 or move_1_type == 15 or move_1_type == 3 or move_1_type == 2 or move_1_type == 5):
+			return 0
+
+		if (move_1_type == 1):
+			return 10
+
+		if (move_1_type == 6 or move_1_type == 10):
+			return 20
+
+		if (move_1_type == 11):
+			return 100
+
+
+	### Ice normal
+	if (type_1 == 12 and type_2 == 13):
+		if (move_1_type == 6):
+			return -20
+		
+		if (move_1_type == 16 or move_1_type == 17 or move_1_type == 7):
+			return -10
+
+		if (move_1_type == 13 or move_1_type == 8 or move_1_type == 14 or move_1_type == 11 or move_1_type == 1 or move_1_type == 18 or move_1_type == 10 or move_1_type == 4 or move_1_type == 15 or move_1_type == 3 or move_1_type == 2 or move_1_type == 5):
+			return 0
+
+		if (move_1_type == 12):
+			return 10
+
+		if (move_1_type == 9):
+			return 100
+
+
+
+	### Grass psychic
+	if (type_1 == 10 and type_2 == 15 or type_1 == 15 and type_1 == 10):
+		if (move_1_type == 1):
+			return -20
+		
+		if (move_1_type == 8 or move_1_type == 14 or move_1_type == 9 or move_1_type == 7 or move_1_type == 12 or move_1_type == 2):
+			return -10
+
+		if (move_1_type == 13 or move_1_type == 16 or move_1_type == 17 or move_1_type == 3 or move_1_type == 5):
+			return 0
+
+		if (move_1_type == 6 or move_1_type == 11 or move_1_type == 18 or move_1_type == 10 or move_1_type == 4 or move_1_type == 15):
+			return 10
+
+
+	### bug normal
+		
+	
+	### Dark rock
+	if (type_1 == 2 and type_2 == 16 or type_1 == 16 and type_1 == 2):
+		if (move_1_type == 6):
+			return -20
+
+		if (move_1_type == 11 or move_1_type == 1 or move_1_type == 17 or move_1_type == 18 or move_1_type == 10 or move_1_type == 5):
+			return -10
+
+		if (move_1_type == 16 or move_1_type == 4 or move_1_type == 12 or move_1_type == 3):
+			return 0
+
+		if (move_1_type == 13 or move_1_type == 8 or move_1_type == 14 or move_1_type == 9 or move_1_type == 7 or move_1_type == 2):
+			return 10
+		
+		if (move_1_type == 15):
+			return 100
+
+		
+	### Fire rock
+	if (type_1 == 7 and type_2 == 16 or type_1 == 16 and type_2 == 7):
+		if (move_1_type == 11 or move_1_type == 18):
+			return -20
+		
+		if (move_1_type == 6 or move_1_type == 16):
+			return -10
+
+		if (move_1_type == 9 or move_1_type == 17 or move_1_type == 10 or move_1_type == 4 or move_1_type == 15 or move_1_type == 3 or move_1_type == 2):
+			return 0
+		
+		if (move_1_type == 13 or move_1_type == 8 or move_1_type == 14 or move_1_type == 1 or move_1_type == 12 or move_1_type == 5):
+			return 10
+
+		if (move_1_type == 7):
+			return 20
+
+	### Normal poison
+	if (type_1 == 13 and type_2 == 14):
+		if (move_1_type == 11 or move_1_type == 15):
+			return -10
+		
+		if (move_1_type == 13 or move_1_type == 6 or move_1_type == 8 or move_1_type == 16 or move_1_type == 17 or move_1_type == 7 or move_1_type == 18 or move_1_type == 4 or move_1_type == 12 or move_1_type == 3 or move_1_type == 2):
+			return 0
+
+		if (move_1_type == 14 or move_1_type == 1 or move_1_type == 10 or move_1_type == 5):
+			return 10
+
+		if (move_1_type == 9):
+			return 100
+
+	
+	### Bug fighting
+	if (type_1 == 1 and type_2 == 6 or type_1 == 6 and type_2 == 1):
+		if (move_1_type == 8):
+			return -20
+		
+		if (move_1_type == 7 or move_1_type == 15 or move_1_type == 5):
+			return -10
+
+		if (move_1_type == 13 or move_1_type == 14 or move_1_type == 16 or move_1_type == 9 or move_1_type == 17 or move_1_type == 18 or move_1_type == 4 or move_1_type == 12 or move_1_type == 3):
+			return 0
+
+		if (move_1_type == 6 or move_1_type == 11 or move_1_type == 1 or move_1_type == 10 or move_1_type == 2):
+			return 10
+
+	### normal rock
+	if (type_1 == 13 and type_2 == 16 or type_1 == 16 and type_2 == 13):
+		if (move_1_type == 6):
+			return -20
+		
+		if (move_1_type == 11 or move_1_type == 17 or move_1_type == 18 or move_1_type == 10):
+			return -10
+		
+		if (move_1_type == 16 or move_1_type == 1 or move_1_type == 4 or move_1_type == 15 or move_1_type == 12 or move_1_type == 3 or move_1_type == 2 or move_1_type == 5):
+			return 0
+		
+		if (move_1_type == 13 or move_1_type == 8 or move_1_type == 14 or move_1_type == 7):
+			return 10
+		
+		if (move_1_type == 9):
+			return 20
+		
+	
+	### ground grass
+	if (type_1 == 11 and type_2 == 10 or type_1 == 10 and type_2 == 11):
+		if (move_1_type == 12):
+			return -20
+		
+		if (move_1_type == 8 or move_1_type == 1 or move_1_type == 7):
+			return -10
+		
+		if (move_1_type == 13 or move_1_type == 6 or move_1_type == 14 or move_1_type == 18 or move_1_type == 17 or move_1_type == 9 or move_1_type == 10 or move_1_type == 15 or move_1_type == 3 or move_1_type == 2 or move_1_type == 5):
+			return 0
+		
+		if (move_1_type == 11 or move_1_type == 16):
+			return 10
+
+		if (move_1_type == 4):
+			return 100
+
+	
+	### ground rock
+	if (type_1 == 11 and type_2 == 16 or type_1 == 16 and type_2 == 11):
+		if (move_1_type == 18 and move_1_type == 10):
+			return -20
+		
+		if (move_1_type == 6 or move_1_type == 11 or move_1_type == 17 or move_1_type == 12):
+			return -10
+		
+		if (move_1_type == 1 or move_1_type == 9 or move_1_type == 15 or move_1_type == 3 or move_1_type == 2 or move_1_type == 5):
+			return 0
+		
+		if (move_1_type == 13 or move_1_type == 8 or move_1_type == 16 or move_1_type == 7):
+			return 10
+		
+		if (move_1_type == 14):
+			return 20
+		
+		if (move_1_type == 4):
+			return 100
+	
+	### Ice flying
+	### pass
 
 	if (type_1 == 1 or type_2 == 1):
 		if (node.getBattle.available_moves[i]):
