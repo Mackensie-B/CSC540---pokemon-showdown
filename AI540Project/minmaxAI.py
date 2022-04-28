@@ -86,10 +86,9 @@ class minMaxPlayer(Player):
 			# send in battle object so all properties are available
 			rootNode = BattleNode(battle, None, None)
 			rootNode = buildTree(rootNode) #send root, returns root node of constructed tree
-			best_node = minmax(rootNode, 0) # send in root node(current battle), get root node with the chosen move stored
-			# make move
-			move = best_node.getMove()
-			print("move: ", move)
+			best_move = minmax(rootNode, 0) # send in root node(current battle), get chosen move
+			
+			print("move: ", best_move)
 			# From max damage example:
 				# Now that we have selected a move, we need 
 				# to return a corresponding order, which takes
@@ -98,7 +97,7 @@ class minMaxPlayer(Player):
 				# directly: create_order. It takes a Pokemon 
 				# (for switches) or Move object as argument, 
 				# and returns a string corresponding to the order.
-			return self.create_order(move)
+			return self.create_order(best_move)
 		else: 
 			# From max damage example:
 				# We also have to return an order 
@@ -229,8 +228,8 @@ def minmax(node):
 		# go to end of each branch recursively
 		for i in range(0, len(node.getChildren)):
 			minmax(node.getChildren[i])
-			# Comes back when all children have a value
-			# Get value for node from children
+		# Comes back when all children have a value
+		# Get value for node from children based on turn
 		if node.player_turn:
 			maxVal = -9999
 			for child in node.getChildren:
@@ -243,6 +242,19 @@ def minmax(node):
 				if child.getValue < minVal:
 					minVal = child.getValue
 			node.setValue = minVal 
+	
+	# if the node is the root (no parent)
+	if node.getParent == None:
+		# find best child and return their move
+		if node.player_turn: # root should always be player turn
+			best_move = None
+			maxVal = -9999
+			for child in node.getChildren:
+				if child.getValue > maxVal:
+					maxVal = child.getValue
+					best_move = child.getMove()
+			return best_move
+		else: print("Error: root not player turn")
 
 
 	
