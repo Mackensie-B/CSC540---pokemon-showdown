@@ -199,19 +199,70 @@ def minmax(node):
 	move_4_type = node.getBattle.available_moves[3].type
 
 	### Goal is to check to see if move_type is super_effective. It is currently defining it as the best move
-	if (type_1 == 1 or type_2 == 1):
+
+	# ice and rock effectiveness
+	if (type_1 == 12 and type_2 == 16 or type_1 == 16 and type_2 == 12):
 	#checkMoves
-		if (move_1_type == 7 or move_1_type == 16 or move_1_type == 8):
-			best_move = node.getBattle.available_moves[0]
+		# takes 4* damage from fighting and steel
+		if (move_1_type == 6 or move_1_type == 17):
+			return -20 # best move cause quad superEffective
 
-		elif (move_2_type == 7 or move_2_type == 16 or move_2_type == 8):
-			best_move = node.getBattle.available_moves[1]
+		elif (move_2_type == 6 or move_2_type == 17):
+			return -20
 			
-		elif (move_3_type == 7 or move_3_type == 16 or move_3_type == 8):
-			best_move = node.getBattle.available_moves[2]
+		elif (move_3_type == 6 or move_3_type == 17):
+			return -20
 
-		elif (move_4_type == 7 or move_1_type == 16 or move_4_type == 8):
-			best_move = node.getBattle.available_moves[3]
+		elif (move_4_type == 6 or move_1_type == 17):
+			return -20
+
+		# takes 2* damage from ground, rock, grass, and water
+		elif (move_1_type == 11 or move_1_type == 16 or move_1_type == 10 or move_1_type == 18):
+			return -10
+		
+		elif (move_2_type == 11 or move_2_type == 16 or move_2_type == 10 or move_2_type == 18):
+			return -10
+
+		elif (move_3_type == 11 or move_3_type == 16 or move_3_type == 10 or move_3_type == 18):
+			return -10
+
+		elif (move_4_type == 11 or move_4_type == 16 or move_4_type == 10 or move_4_type == 18):
+			return -10
+
+		# takes 1* damage from bug, ghost, fire, electric, psychic, dragon, dark, and fairy
+		elif (move_1_type == 1 or move_1_type == 9 or move_1_type == 7 or move_1_type == 4 or move_1_type == 15 or move_1_type == 3 or move_1_type == 5):
+			return 0
+
+		elif (move_2_type == 1 or move_2_type == 9 or move_2_type == 7 or move_2_type == 4 or move_2_type == 15 or move_2_type == 3 or move_2_type == 5):
+			return 0
+
+		elif (move_3_type == 1 or move_3_type == 9 or move_3_type == 7 or move_3_type == 4 or move_3_type == 15 or move_3_type == 3 or move_3_type == 5):
+			return 0
+
+		elif (move_4_type == 1 or move_4_type == 9 or move_4_type == 7 or move_4_type == 4 or move_4_type == 15 or move_4_type == 3 or move_4_type == 5):
+			return 0
+
+		# takes .5 damage from normal, flying, poison, and ice
+		elif (move_1_type == 13 or move_1_type == 8 or move_1_type == 14 or move_1_type == 12):
+			return 10
+		
+		elif (move_2_type == 13 or move_2_type == 8 or move_2_type == 14 or move_2_type == 12):
+			return 10
+
+		elif (move_3_type == 13 or move_3_type == 8 or move_3_type == 14 or move_3_type == 12):
+			return 10
+
+		elif (move_4_type == 13 or move_4_type == 8 or move_4_type == 14 or move_4_type == 12):
+			return 10
+
+		### Test here for regular effective moves and return 0
+		#elif (move_1_type == 7 or move_1_type == 16 or move_1_type == 8):
+	#		return 0
+
+		### Test here for non effective moves and return 10
+		elif (move_1_type == 10 or move_1_type == 2 or move_1_type == 15): # fairy steel, 
+			return 10
+
 
 	if (type_1 == 1 or type_2 == 1):
 		if (node.getBattle.available_moves[i]):
@@ -221,7 +272,6 @@ def minmax(node):
 	if (len(node.getChildren) < 1):
 		# This is the last node of a branch
 		# Assign it a value
-		
 		pass
 	
 	else:
