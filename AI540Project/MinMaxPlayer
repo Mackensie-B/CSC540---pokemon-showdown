@@ -1,0 +1,30 @@
+from poke_env.player.player import Player
+import BattleNode
+
+class MinMaxPlayer(Player):
+	
+	def choose_move(self, battle):
+		if battle.available_moves:
+			# send in battle object so all properties are available
+			rootNode = BattleNode(battle, None, None)
+			rootNode = buildTree(rootNode) #send root, returns root node of constructed tree
+			best_move = minmax(rootNode, 0) # send in root node(current battle), get chosen move
+			
+			print("move: ", best_move)
+			# From max damage example:
+				# Now that we have selected a move, we need 
+				# to return a corresponding order, which takes
+				# the form of a string. Fortunately, Player 
+				# provides a method designed to craft such strings 
+				# directly: create_order. It takes a Pokemon 
+				# (for switches) or Move object as argument, 
+				# and returns a string corresponding to the order.
+			return self.create_order(best_move)
+		else: 
+			# From max damage example:
+				# We also have to return an order 
+				# corresponding to a random switch if 
+				# the player cannot attack. Player objects 
+				# incorporate a choose_random_move method, 
+				# which we will use if no attacking move is available.
+			return self.choose_random_move(battle)
