@@ -19,6 +19,12 @@ class BattleNode:
 		self.move = None
 		self.value = None
 		self.level = None
+		self.damage = None
+		self.state = {}
 	
 	def addChild(self, child):
 		self.children.append(child)
+
+	def  __str__ (self):
+		return "PT: {0}  lvl: {1} M: {2}  D: {3} S: {5} V: {4}".format("True" if self.player_turn else "False" , self.level, self.move, self.damage, self.value, self.state)
+		 
